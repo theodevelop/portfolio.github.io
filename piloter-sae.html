@@ -30,7 +30,7 @@
         nav {
             position: fixed;
             top: 0;
-            left: 0;
+            left: -1rem;
             right: 0;
             padding: 2rem 4rem;
             display: flex;
@@ -87,13 +87,21 @@
             display: none;
             position: absolute;
             top: 100%;
-            left: 0;
+            left: -1rem;
             background: white;
             min-width: 200px;
             box-shadow: 0 10px 40px rgba(0,0,0,0.1);
             border-radius: 8px;
             padding: 1rem 0;
-            margin-top: 1rem;
+            padding-top: 1.5rem;
+
+        .dropdown-content::before {
+            content: '';
+            position: absolute;
+            top: -1rem;
+            left: 0;
+            right: 0;
+            height: 1rem;
         }
 
         .dropdown:hover .dropdown-content {
@@ -261,7 +269,15 @@
         .image-caption {
             font-size: 0.9rem;
             color: var(--dark-grey);
-            margin-top: 1rem;
+            padding-top: 1.5rem;
+
+        .dropdown-content::before {
+            content: '';
+            position: absolute;
+            top: -1rem;
+            left: 0;
+            right: 0;
+            height: 1rem;
             font-style: italic;
         }
 

@@ -83,13 +83,22 @@
             display: none;
             position: absolute;
             top: 100%;
-            left: 0;
+            left: -1rem;
             background: white;
             min-width: 200px;
             box-shadow: 0 10px 40px rgba(0,0,0,0.1);
             border-radius: 8px;
             padding: 1rem 0;
-            margin-top: 1rem;
+            padding-top: 1.5rem;
+        }
+
+        .dropdown-content::before {
+            content: '';
+            position: absolute;
+            top: -1rem;
+            left: 0;
+            right: 0;
+            height: 1rem;
         }
 
         .dropdown:hover .dropdown-content {
@@ -681,7 +690,7 @@
         <div class="contact-container">
             <h2>Travaillons<br>ensemble</h2>
             <p>Vous avez un projet ou souhaitez en savoir plus sur mon parcours ?</p>
-            <a href="/cdn-cgi/l/email-protection#1a7975746e7b796e5a7f77777b696e7f727f766374347c68" class="contact-button">Me contacter</a>
+            <a href="mailto:emma.stehelyn@univ-lyon3.fr" class="contact-button">Me contacter</a>
         </div>
     </section>
 
@@ -696,7 +705,7 @@
             </div>
             <div class="footer-section">
                 <h4>Contact</h4>
-                <a href="/cdn-cgi/l/email-protection#d7b4b8b9a3b6b4a397b2babab6a4a3b2bfb2bbaeb9f9b1a5"><span class="__cf_email__" data-cfemail="89eae6e7fde8eafdc9ece4e4e8fafdece1ece5f0e7a7effb">[email&#160;protected]</span></a>
+                <a href="mailto:emma.stehelyn@univ-lyon3.fr">emma.stehelyn@univ-lyon3.fr</a>
                 <a href="#">LinkedIn</a>
                 <a href="https://c91f0b51-c96f-4e91-8320-175eb34e6609.filesusr.com/ugd/ac4b6c_8727a9b7ce024135b32daeb88389d795.pdf" target="_blank">Télécharger CV</a>
             </div>
@@ -709,7 +718,7 @@
         <p style="opacity: 0.4; margin-top: 2rem;">© 2024 Emma Stehelyn. Tous droits réservés.</p>
     </footer>
 
-    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+    <script>
         // Smooth Scroll Animations
         const observerOptions = {
             threshold: 0.1,
@@ -732,6 +741,27 @@
             observer.observe(el);
         });
 
-        // Parallax Effect
+        // Parallax Effect on floating cards
         document.addEventListener('scroll', () => {
-            const sc
+            const scrolled = window.pageYOffset;
+            const cards = document.querySelectorAll('.floating-card');
+            cards.forEach((card, i) => {
+                const speed = 0.1 + (i * 0.05);
+                card.style.transform = `translateY(${scrolled * speed}px)`;
+            });
+        });
+
+        // Nav background change on scroll
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 100) {
+                nav.style.background = 'rgba(250, 250, 250, 0.98)';
+                nav.style.boxShadow = '0 2px 20px rgba(0,0,0,0.1)';
+            } else {
+                nav.style.background = 'rgba(250, 250, 250, 0.95)';
+                nav.style.boxShadow = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
