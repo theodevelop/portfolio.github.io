@@ -178,7 +178,6 @@
             width: 90%;
             max-width: 350px;
             animation: popIn 0.5s ease;
-            position: relative;
         }
         .love-popup img {
             width: 100%;
@@ -186,42 +185,88 @@
             margin-bottom: 1.2rem;
         }
         .love-popup p {
-            font-size: 1.1rem;
+            font-size: 1.2rem;
             font-weight: 700;
             color: var(--accent);
             line-height: 1.6;
-            margin: 0;
+            margin: 0 0 1.5rem 0;
         }
-        .love-popup .close-btn {
-            position: absolute;
-            top: -18px;
-            right: -18px;
-            width: 45px;
-            height: 45px;
+        .popup-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+        }
+        .btn-oui, .btn-non {
+            padding: 1rem 2rem;
+            font-size: 1.1rem;
+            font-weight: 700;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .btn-oui {
             background: var(--accent);
             color: white;
-            border: none;
-            border-radius: 50%;
-            font-size: 1.8rem;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-            -webkit-tap-highlight-color: transparent;
+        }
+        .btn-oui:hover {
+            background: #ff8555;
+            transform: scale(1.05);
+        }
+        .btn-non {
+            background: var(--grey);
+            color: var(--dark-grey);
         }
         .love-popup-overlay.hidden { display: none; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
         @keyframes popIn { from { transform: scale(0.8); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+
+        /* Mauvaise réponse */
+        .wrong-answer {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: #ff4444;
+            color: white;
+            padding: 1.5rem 2.5rem;
+            border-radius: 15px;
+            font-size: 1.5rem;
+            font-weight: 900;
+            z-index: 100001;
+            animation: shake 0.5s ease, popIn 0.3s ease;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.4);
+        }
+        @keyframes shake {
+            0%, 100% { transform: translate(-50%, -50%) rotate(0); }
+            25% { transform: translate(-50%, -50%) rotate(-5deg); }
+            75% { transform: translate(-50%, -50%) rotate(5deg); }
+        }
+        .angry-emoji {
+            position: fixed;
+            font-size: 3rem;
+            z-index: 100000;
+            pointer-events: none;
+            animation: emojiPop 1.5s ease-out forwards;
+        }
+        @keyframes emojiPop {
+            0% { transform: scale(0) rotate(0deg); opacity: 1; }
+            50% { transform: scale(1.5) rotate(180deg); opacity: 1; }
+            100% { transform: scale(0.5) rotate(360deg) translateY(-100px); opacity: 0; }
+        }
     </style>
 </head>
 <body>
     <!-- Popup Love -->
-    <div class="love-popup-overlay" id="lovePopup" onclick="closePopupOutside(event)">
+    <div class="love-popup-overlay" id="lovePopup">
         <div class="love-popup">
-            <button class="close-btn" onclick="closePopup()" ontouchend="closePopup()">×</button>
             <img src="./emma_jtm.jpg" alt="Emma je t'aime">
-            <p>EMMA JE T'AIME 😻<br>T'ES TROP LFDMV EN FAIT 😼</p>
+            <p>EMMA JE T'AIME 😻<br>Tu veux être ma femme ?</p>
+            <div class="popup-buttons">
+                <button class="btn-oui" onclick="closePopup()">OUI 💍</button>
+                <button class="btn-non" onclick="wrongAnswer()">NON</button>
+            </div>
         </div>
     </div>
 
@@ -402,10 +447,33 @@
         function closePopup() {
             document.getElementById('lovePopup').classList.add('hidden');
         }
-        function closePopupOutside(event) {
-            if (event.target.id === 'lovePopup') {
-                closePopup();
+
+        // Mauvaise réponse
+        function wrongAnswer() {
+            const emojis = ['😠', '😡', '🤬', '💢', '👎', '😤', '🙄', '😾', '💔', '❌'];
+            
+            // Créer le message
+            const msg = document.createElement('div');
+            msg.className = 'wrong-answer';
+            msg.textContent = 'MAUVAISE RÉPONSE ❌';
+            document.body.appendChild(msg);
+            
+            // Créer plein d'emojis
+            for (let i = 0; i < 20; i++) {
+                setTimeout(() => {
+                    const emoji = document.createElement('div');
+                    emoji.className = 'angry-emoji';
+                    emoji.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+                    emoji.style.left = Math.random() * 100 + 'vw';
+                    emoji.style.top = Math.random() * 100 + 'vh';
+                    document.body.appendChild(emoji);
+                    
+                    setTimeout(() => emoji.remove(), 1500);
+                }, i * 50);
             }
+            
+            // Supprimer le message après 1.5s
+            setTimeout(() => msg.remove(), 1500);
         }
 
         function toggleMenu() {
