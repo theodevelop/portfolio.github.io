@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emma Stehelyn | Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --black: #0a0a0a;
+            --white: #fafafa;
+            --accent: #ff6b35;
+            --grey: #e8e8e8;
+            --dark-grey: #2a2a2a;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--white);
+            color: var(--black);
+            overflow-x: hidden;
+        }
+
+        /* Cursor Custom */
+        body {
+            cursor: none;
+        }
+
+        .cursor {
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--accent);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            transition: all 0.1s ease;
+            mix-blend-mode: difference;
+        }
+
+        .cursor-follower {
+            width: 40px;
+            height: 40px;
+            border: 1px solid var(--accent);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9998;
+            transition: all 0.3s ease;
+            opacity: 0.5;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            padding: 2rem 4rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            background: rgba(250, 250, 250, 0.8);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .logo {
+            font-size: 1.2rem;
+            font-weight: 900;
+            letter-spacing: -0.05em;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 3rem;
+            list-style: none;
+        }
+
+        .nav-menu a {
+            color: var(--black);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        .nav-menu a::before {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent);
+            transition: width 0.3s ease;
+        }
+
+        .nav-menu a:hover::before {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 0 4rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            max-width: 1400px;
+            width: 100%;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .hero-text h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(3rem, 8vw, 7rem);
+            font-weight: 900;
+            line-height: 0.95;
+            margin-bottom: 2rem;
+            letter-spacing: -0.03em;
+        }
+
+        .hero-text .highlight {
+            color: var(--accent);
+            font-style: italic;
+        }
+
+        .hero-text p {
+            font-size: 1.2rem;
+            line-height: 1.6;
+            color: var(--dark-grey);
+            margin-bottom: 3rem;
+            max-width: 500px;
+        }
+
+        .hero-cta {
+            display: inline-block;
+            padding: 1.2rem 3rem;
+            background: var(--black);
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-cta::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--accent);
+            transition: left 0.4s ease;
+            z-index: -1;
+        }
+
+        .hero-cta:hover::before {
+            left: 0;
+        }
+
+        .hero-visual {
+            position: relative;
+            height: 600px;
+        }
+
+        .floating-card {
+            position: absolute;
+            background: white;
+            padding: 2rem;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .card-1 {
+            top: 0;
+            right: 0;
+            width: 250px;
+            animation-delay: 0s;
+        }
+
+        .card-2 {
+            bottom: 100px;
+            left: 0;
+            width: 280px;
+            animation-delay: 2s;
+        }
+
+        .card-3 {
+            top: 200px;
+            right: 50px;
+            width: 200px;
+            animation-delay: 4s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(2deg); }
+        }
+
+        .floating-card h3 {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 0.5rem;
+            color: var(--accent);
+        }
+
+        .floating-card p {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        /* About Section */
+        .about {
+            padding: 10rem 4rem;
+            background: var(--black);
+            color: var(--white);
+        }
+
+        .about-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 0.4fr 0.6fr;
+            gap: 6rem;
+            align-items: start;
+        }
+
+        .about-label {
+            position: sticky;
+            top: 150px;
+        }
+
+        .about-label h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 4rem;
+            font-weight: 900;
+            line-height: 1;
+            margin-bottom: 1rem;
+        }
+
+        .about-label .number {
+            font-size: 8rem;
+            font-weight: 900;
+            opacity: 0.1;
+            line-height: 1;
+        }
+
+        .about-content p {
+            font-size: 1.3rem;
+            line-height: 1.8;
+            margin-bottom: 2rem;
+            color: rgba(255,255,255,0.8);
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 3rem;
+            margin-top: 4rem;
+            padding-top: 4rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .stat-item h4 {
+            font-size: 3rem;
+            font-weight: 900;
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-item p {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: rgba(255,255,255,0.6);
+        }
+
+        /* Competences Section */
+        .competences {
+            padding: 10rem 4rem;
+        }
+
+        .competences-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            margin-bottom: 6rem;
+            text-align: center;
+        }
+
+        .section-header h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 5rem;
+            font-weight: 900;
+            margin-bottom: 1rem;
+        }
+
+        .section-header p {
+            font-size: 1.2rem;
+            color: var(--dark-grey);
+        }
+
+        .competences-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+        }
+
+        .comp-card {
+            background: var(--grey);
+            padding: 4rem;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.5s ease;
+            cursor: pointer;
+        }
+
+        .comp-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--accent);
+            transition: left 0.5s ease;
+            z-index: 0;
+        }
+
+        .comp-card:hover::before {
+            left: 0;
+        }
+
+        .comp-card:hover {
+            color: white;
+        }
+
+        .comp-card > * {
+            position: relative;
+            z-index: 1;
+        }
+
+        .comp-number {
+            font-size: 6rem;
+            font-weight: 900;
+            opacity: 0.1;
+            line-height: 1;
+            margin-bottom: 1rem;
+        }
+
+        .comp-card h3 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+        }
+
+        .comp-card ul {
+            list-style: none;
+        }
+
+        .comp-card li {
+            font-size: 1rem;
+            margin-bottom: 0.8rem;
+            padding-left: 2rem;
+            position: relative;
+        }
+
+        .comp-card li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            font-weight: 700;
+        }
+
+        /* Projects Showcase */
+        .projects {
+            padding: 10rem 0;
+            background: var(--black);
+            color: var(--white);
+        }
+
+        .projects-container {
+            max-width: 1800px;
+            margin: 0 auto;
+        }
+
+        .project-item {
+            padding: 4rem;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            transition: all 0.5s ease;
+        }
+
+        .project-item:hover {
+            background: rgba(255,255,255,0.02);
+        }
+
+        .project-info h3 {
+            font-size: 3rem;
+            font-weight: 900;
+            margin-bottom: 1rem;
+        }
+
+        .project-info .project-type {
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            font-size: 0.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .project-info p {
+            font-size: 1.1rem;
+            line-height: 1.7;
+            color: rgba(255,255,255,0.7);
+        }
+
+        .project-visual {
+            height: 400px;
+            background: var(--grey);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            opacity: 0.3;
+        }
+
+        /* Contact Section */
+        .contact {
+            padding: 10rem 4rem;
+            background: var(--white);
+        }
+
+        .contact-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .contact-container h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 6rem;
+            font-weight: 900;
+            margin-bottom: 3rem;
+        }
+
+        .contact-container p {
+            font-size: 1.5rem;
+            color: var(--dark-grey);
+            margin-bottom: 4rem;
+        }
+
+        .contact-button {
+            display: inline-block;
+            padding: 2rem 4rem;
+            background: var(--accent);
+            color: white;
+            text-decoration: none;
+            font-size: 1.2rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            transition: all 0.4s ease;
+        }
+
+        .contact-button:hover {
+            background: var(--black);
+            transform: scale(1.05);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--black);
+            color: white;
+            padding: 4rem;
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 4rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-section h4 {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            margin-bottom: 1rem;
+            color: var(--accent);
+        }
+
+        .footer-section p, .footer-section a {
+            color: rgba(255,255,255,0.6);
+            text-decoration: none;
+            font-size: 0.9rem;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-section a:hover {
+            color: white;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            nav {
+                padding: 1.5rem 2rem;
+            }
+
+            .hero, .about, .competences, .projects, .contact {
+                padding: 5rem 2rem;
+            }
+
+            .hero-content {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-visual {
+                display: none;
+            }
+
+            .about-container {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+
+            .competences-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .project-item {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                text-align: left;
+            }
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+<body>
+    <div class="cursor"></div>
+    <div class="cursor-follower"></div>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="logo">ES.</div>
+        <ul class="nav-menu">
+            <li><a href="#accueil">Accueil</a></li>
+            <li><a href="#about">À propos</a></li>
+            <li><a href="#competences">Compétences</a></li>
+            <li><a href="#projects">Projets</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="accueil">
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1>Emma<br><span class="highlight">Stehelyn</span></h1>
+                <p>Étudiante en BUT Carrières Juridiques à Lyon 3. Passionnée par le droit, les relations humaines et l'analyse juridique.</p>
+                <a href="#about" class="hero-cta">Découvrir mon parcours</a>
+            </div>
+            <div class="hero-visual">
+                <div class="floating-card card-1">
+                    <h3>Formation</h3>
+                    <p>BUT CJ</p>
+                </div>
+                <div class="floating-card card-2">
+                    <h3>Localisation</h3>
+                    <p>Lyon, FR</p>
+                </div>
+                <div class="floating-card card-3">
+                    <h3>Année</h3>
+                    <p>2024</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about" id="about">
+        <div class="about-container">
+            <div class="about-label">
+                <div class="number">01</div>
+                <h2>À propos</h2>
+            </div>
+            <div class="about-content">
+                <p>Née en Belgique, j'ai grandi dans un environnement multiculturel qui m'a donné une ouverture d'esprit précieuse. Après avoir vécu dans la Drôme, j'ai choisi Lyon pour poursuivre mes études supérieures.</p>
+                
+                <p>Titulaire d'un baccalauréat STMG spécialité marketing, j'ai orienté ma curiosité vers les mécanismes juridiques et les relations humaines en intégrant le BUT Carrières Juridiques à l'Université Lyon 3.</p>
+                
+                <p>Cette formation pluridisciplinaire me permet d'allier rigueur, esprit d'analyse et sens du contact dans un domaine qui me passionne.</p>
+
+                <div class="stats">
+                    <div class="stat-item">
+                        <h4>3+</h4>
+                        <p>Années d'études supérieures</p>
+                    </div>
+                    <div class="stat-item">
+                        <h4>10+</h4>
+                        <p>Projets réalisés</p>
+                    </div>
+                    <div class="stat-item">
+                        <h4>100%</h4>
+                        <p>Engagement</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Competences Section -->
+    <section class="competences" id="competences">
+        <div class="competences-container">
+            <div class="section-header">
+                <h2>Compétences</h2>
+                <p>Quatre axes majeurs de mon parcours académique</p>
+            </div>
+
+            <div class="competences-grid">
+                <div class="comp-card">
+                    <div class="comp-number">01</div>
+                    <h3>Piloter</h3>
+                    <ul>
+                        <li>Projet Personnel et Professionnel</li>
+                        <li>Situations d'Apprentissage évaluées</li>
+                        <li>Expérience en alternance</li>
+                    </ul>
+                </div>
+
+                <div class="comp-card">
+                    <div class="comp-number">02</div>
+                    <h3>Conseiller</h3>
+                    <ul>
+                        <li>Accompagnement personnalisé</li>
+                        <li>Conseil juridique appliqué</li>
+                        <li>Gestion de dossiers clients</li>
+                    </ul>
+                </div>
+
+                <div class="comp-card">
+                    <div class="comp-number">03</div>
+                    <h3>Sécuriser</h3>
+                    <ul>
+                        <li>Analyse des risques juridiques</li>
+                        <li>Conformité réglementaire</li>
+                        <li>Veille juridique continue</li>
+                    </ul>
+                </div>
+
+                <div class="comp-card">
+                    <div class="comp-number">04</div>
+                    <h3>Rédiger</h3>
+                    <ul>
+                        <li>Documents professionnels</li>
+                        <li>Actes juridiques</li>
+                        <li>Rapports et synthèses</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section class="projects" id="projects">
+        <div class="projects-container">
+            <div class="project-item">
+                <div class="project-info">
+                    <div class="project-type">Piloter · PPP</div>
+                    <h3>Projet Personnel Professionnel</h3>
+                    <p>Développement d'une stratégie de carrière structurée avec analyse de mes compétences, objectifs professionnels et plan d'action.</p>
+                </div>
+                <div class="project-visual">📊</div>
+            </div>
+
+            <div class="project-item">
+                <div class="project-info">
+                    <div class="project-type">Conseiller · SAé</div>
+                    <h3>Conseil Juridique</h3>
+                    <p>Mise en situation réelle de conseil auprès de clients fictifs, gestion de cas pratiques en droit des contrats et droit social.</p>
+                </div>
+                <div class="project-visual">💼</div>
+            </div>
+
+            <div class="project-item">
+                <div class="project-info">
+                    <div class="project-type">Sécuriser · Alternance</div>
+                    <h3>Conformité & Veille</h3>
+                    <p>Participation active à la veille réglementaire et à l'analyse des risques juridiques en entreprise.</p>
+                </div>
+                <div class="project-visual">🔒</div>
+            </div>
+
+            <div class="project-item">
+                <div class="project-info">
+                    <div class="project-type">Rédiger · SAé</div>
+                    <h3>Rédaction Juridique</h3>
+                    <p>Maîtrise de la rédaction d'actes juridiques, contrats, notes de synthèse et documents professionnels.</p>
+                </div>
+                <div class="project-visual">✍️</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <div class="contact-container">
+            <h2>Travaillons<br>ensemble</h2>
+            <p>Vous avez un projet ou souhaitez en savoir plus sur mon parcours ?</p>
+            <a href="mailto:contact@emmastehelyn.fr" class="contact-button">Me contacter</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>Navigation</h4>
+                <a href="#accueil">Accueil</a>
+                <a href="#about">À propos</a>
+                <a href="#competences">Compétences</a>
+                <a href="#projects">Projets</a>
+            </div>
+            <div class="footer-section">
+                <h4>Contact</h4>
+                <a href="mailto:contact@emmastehelyn.fr">contact@emmastehelyn.fr</a>
+                <a href="#">LinkedIn</a>
+                <a href="https://c91f0b51-c96f-4e91-8320-175eb34e6609.filesusr.com/ugd/ac4b6c_8727a9b7ce024135b32daeb88389d795.pdf" target="_blank">Télécharger CV</a>
+            </div>
+            <div class="footer-section">
+                <h4>Localisation</h4>
+                <p>Lyon, France</p>
+                <p>Université Lyon 3</p>
+            </div>
+        </div>
+        <p style="opacity: 0.4; margin-top: 2rem;">© 2024 Emma Stehelyn. Tous droits réservés.</p>
+    </footer>
+
+    <script>
+        // Custom Cursor
+        const cursor = document.querySelector('.cursor');
+        const follower = document.querySelector('.cursor-follower');
+
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+            
+            setTimeout(() => {
+                follower.style.left = e.clientX + 'px';
+                follower.style.top = e.clientY + 'px';
+            }, 100);
+        });
+
+        // Smooth Scroll Animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.comp-card, .project-item, .stat-item').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(50px)';
+            el.style.transition = 'all 0.8s cubic-bezier(0.4, 0, 0.2, 1)';
+            observer.observe(el);
+        });
+
+        // Parallax Effect
+        document.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            document.querySelectorAll('.floating-card').forEach((card, index) => {
+                card.style.transform = `translateY(${scrolled * (0.1 + index * 0.05)}px) rotate(${scrolled * 0.01}deg)`;
+            });
+        });
+    </script>
+</body>
+</html>
