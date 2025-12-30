@@ -9,68 +9,144 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
         :root { --black: #0a0a0a; --white: #fafafa; --accent: #ff6b35; --grey: #e8e8e8; --dark-grey: #2a2a2a; }
         body { font-family: 'Inter', sans-serif; background: var(--white); color: var(--black); overflow-x: hidden; }
-        nav { position: fixed; top: 0; left: 0; right: 0; padding: 2rem 4rem; display: flex; justify-content: space-between; align-items: center; z-index: 1000; background: rgba(250, 250, 250, 0.95); backdrop-filter: blur(20px); border-bottom: 1px solid rgba(0,0,0,0.05); }
+        
+        /* Navigation */
+        nav { position: fixed; top: 0; left: 0; right: 0; padding: 1.5rem 2rem; display: flex; justify-content: space-between; align-items: center; z-index: 1000; background: rgba(250, 250, 250, 0.95); backdrop-filter: blur(20px); border-bottom: 1px solid rgba(0,0,0,0.05); }
         .logo { font-size: 1.2rem; font-weight: 900; letter-spacing: -0.05em; }
         .logo a { text-decoration: none; color: var(--black); }
-        .nav-menu { display: flex; gap: 3rem; list-style: none; align-items: center; }
+        .nav-menu { display: flex; gap: 2rem; list-style: none; align-items: center; }
         .nav-menu > li { position: relative; }
-        .nav-menu > li > a { color: var(--black); text-decoration: none; font-size: 0.9rem; font-weight: 500; letter-spacing: 0.05em; text-transform: uppercase; transition: color 0.3s ease; }
+        .nav-menu > li > a { color: var(--black); text-decoration: none; font-size: 0.85rem; font-weight: 500; letter-spacing: 0.05em; text-transform: uppercase; transition: color 0.3s ease; }
         .nav-menu > li > a:hover, .nav-menu > li > a.active { color: var(--accent); }
-        .dropdown { position: relative; }
-                .dropdown-content { display: none; position: absolute; top: 100%; left: -1rem; background: white; min-width: 200px; box-shadow: 0 10px 40px rgba(0,0,0,0.1); border-radius: 8px; padding: 1rem 0; padding-top: 1.5rem; }
+        
+        /* Desktop Dropdown */
+        .dropdown-content { display: none; position: absolute; top: 100%; left: -1rem; background: white; min-width: 180px; box-shadow: 0 10px 40px rgba(0,0,0,0.1); border-radius: 8px; padding: 0.5rem 0; padding-top: 1.5rem; }
         .dropdown-content::before { content: ''; position: absolute; top: -1rem; left: 0; right: 0; height: 1rem; }
         .dropdown:hover .dropdown-content { display: block; }
-        .dropdown-content a { display: block; padding: 0.8rem 1.5rem; color: var(--black); text-decoration: none; font-size: 0.85rem; transition: all 0.3s ease; }
+        .dropdown-content a { display: block; padding: 0.7rem 1.2rem; color: var(--black); text-decoration: none; font-size: 0.85rem; transition: all 0.3s ease; }
         .dropdown-content a:hover, .dropdown-content a.active { background: var(--grey); color: var(--accent); }
-        .page-header { padding: 12rem 4rem 6rem; background: var(--black); color: var(--white); position: relative; overflow: hidden; }
-        .page-header::before { content: '02'; position: absolute; top: 50%; right: 10%; transform: translateY(-50%); font-size: 25rem; font-weight: 900; opacity: 0.05; line-height: 1; }
-        .page-header-content { max-width: 1400px; margin: 0 auto; position: relative; z-index: 1; }
-        .breadcrumb { display: flex; gap: 1rem; align-items: center; margin-bottom: 2rem; font-size: 0.9rem; }
+        
+        /* Hamburger */
+        .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 10px; z-index: 1002; }
+        .hamburger span { width: 25px; height: 2px; background: var(--black); transition: all 0.3s ease; }
+        .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+        .hamburger.active span:nth-child(2) { opacity: 0; }
+        .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+        
+        /* Page Header */
+        .page-header { padding: 10rem 4rem 5rem; background: var(--black); color: var(--white); position: relative; overflow: hidden; }
+        .page-header::before { content: '02'; position: absolute; top: 50%; right: 10%; transform: translateY(-50%); font-size: 20rem; font-weight: 900; opacity: 0.05; line-height: 1; }
+        .page-header-content { max-width: 1200px; margin: 0 auto; position: relative; z-index: 1; }
+        .breadcrumb { display: flex; gap: 0.8rem; align-items: center; margin-bottom: 1.5rem; font-size: 0.85rem; }
         .breadcrumb a { color: rgba(255,255,255,0.6); text-decoration: none; transition: color 0.3s ease; }
         .breadcrumb a:hover { color: var(--accent); }
         .breadcrumb span { color: rgba(255,255,255,0.3); }
         .breadcrumb .current { color: var(--accent); }
-        .page-header h1 { font-family: 'Playfair Display', serif; font-size: clamp(3rem, 8vw, 6rem); font-weight: 900; line-height: 1; margin-bottom: 1.5rem; }
+        .page-header h1 { font-family: 'Playfair Display', serif; font-size: clamp(2.5rem, 6vw, 5rem); font-weight: 900; line-height: 1.1; margin-bottom: 1rem; }
         .page-header h1 .highlight { color: var(--accent); font-style: italic; }
-        .page-header .subtitle { font-size: 1.3rem; color: rgba(255,255,255,0.7); max-width: 600px; }
-        .main-content { padding: 6rem 4rem; }
-        .content-container { max-width: 1000px; margin: 0 auto; }
-        .semester-section { margin-bottom: 5rem; }
-        .semester-label { display: inline-block; background: var(--accent); color: white; padding: 0.5rem 1.5rem; font-size: 0.85rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 2rem; }
-        .content-block { background: var(--grey); padding: 4rem; margin-bottom: 2rem; }
-        .content-block h2 { font-family: 'Playfair Display', serif; font-size: 2.5rem; font-weight: 900; margin-bottom: 1rem; color: var(--black); }
-        .content-block .sae-title { font-size: 1rem; color: var(--accent); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 2rem; }
-        .content-block p { font-size: 1.1rem; line-height: 1.9; color: var(--dark-grey); margin-bottom: 1.5rem; }
+        .page-header .subtitle { font-size: 1.1rem; color: rgba(255,255,255,0.7); max-width: 550px; }
+        
+        /* Main Content */
+        .main-content { padding: 4rem 2rem; }
+        .content-container { max-width: 900px; margin: 0 auto; }
+        .semester-section { margin-bottom: 4rem; }
+        .semester-label { display: inline-block; background: var(--accent); color: white; padding: 0.4rem 1.2rem; font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 1.5rem; }
+        .content-block { background: var(--grey); padding: 2.5rem; margin-bottom: 1.5rem; }
+        .content-block h2 { font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 900; margin-bottom: 0.8rem; color: var(--black); }
+        .content-block .sae-title { font-size: 0.9rem; color: var(--accent); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 1.5rem; }
+        .content-block p { font-size: 1rem; line-height: 1.8; color: var(--dark-grey); margin-bottom: 1rem; }
         .content-block p:last-child { margin-bottom: 0; }
-        .skills-acquired { background: var(--black); color: var(--white); padding: 3rem; margin-top: 3rem; }
-        .skills-acquired h3 { font-size: 1.2rem; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 1.5rem; color: var(--accent); }
-        .skills-list { display: flex; flex-wrap: wrap; gap: 1rem; }
-        .skill-tag { background: rgba(255,255,255,0.1); padding: 0.8rem 1.5rem; font-size: 0.9rem; border: 1px solid rgba(255,255,255,0.2); transition: all 0.3s ease; }
+        .skills-acquired { background: var(--black); color: var(--white); padding: 2rem; margin-top: 2rem; }
+        .skills-acquired h3 { font-size: 1rem; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 1rem; color: var(--accent); }
+        .skills-list { display: flex; flex-wrap: wrap; gap: 0.8rem; }
+        .skill-tag { background: rgba(255,255,255,0.1); padding: 0.6rem 1rem; font-size: 0.85rem; border: 1px solid rgba(255,255,255,0.2); transition: all 0.3s ease; }
         .skill-tag:hover { background: var(--accent); border-color: var(--accent); }
-        .page-navigation { display: flex; justify-content: space-between; padding: 4rem; background: var(--grey); margin-top: 4rem; }
-        .nav-link { text-decoration: none; color: var(--black); display: flex; align-items: center; gap: 1rem; transition: color 0.3s ease; }
+        
+        /* Page Navigation */
+        .page-navigation { display: flex; justify-content: space-between; padding: 3rem 2rem; background: var(--grey); }
+        .nav-link { text-decoration: none; color: var(--black); display: flex; align-items: center; gap: 0.8rem; transition: color 0.3s ease; }
         .nav-link:hover { color: var(--accent); }
-        .nav-link .label { font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--dark-grey); }
-        .nav-link .title { font-size: 1.5rem; font-weight: 700; }
-        .nav-link.prev { text-align: left; }
-        .nav-link.next { text-align: right; }
-        footer { background: var(--black); color: white; padding: 4rem; text-align: center; }
-        .footer-content { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: repeat(3, 1fr); gap: 4rem; margin-bottom: 3rem; }
-        .footer-section h4 { font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.2em; margin-bottom: 1rem; color: var(--accent); }
-        .footer-section p, .footer-section a { color: rgba(255,255,255,0.6); text-decoration: none; font-size: 0.9rem; display: block; margin-bottom: 0.5rem; }
+        .nav-link .label { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--dark-grey); }
+        .nav-link .title { font-size: 1.2rem; font-weight: 700; }
+        
+        /* Footer */
+        footer { background: var(--black); color: white; padding: 3rem 2rem; }
+        .footer-content { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; margin-bottom: 2rem; }
+        .footer-section h4 { font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.15em; margin-bottom: 0.8rem; color: var(--accent); }
+        .footer-section p, .footer-section a { color: rgba(255,255,255,0.6); text-decoration: none; font-size: 0.85rem; display: block; margin-bottom: 0.4rem; }
         .footer-section a:hover { color: white; }
-        @media (max-width: 1024px) { nav { padding: 1.5rem 2rem; } .nav-menu { gap: 1.5rem; } .page-header, .main-content { padding-left: 2rem; padding-right: 2rem; } .content-block { padding: 2.5rem; } .footer-content { grid-template-columns: 1fr; text-align: left; } }
-        @media (max-width: 768px) { .page-header::before { display: none; } .page-navigation { flex-direction: column; gap: 2rem; } .nav-link.next { text-align: left; } }
+        .footer-bottom { text-align: center; color: rgba(255,255,255,0.4); font-size: 0.8rem; }
+        
+        /* Mobile Styles */
+        @media (max-width: 768px) {
+            .hamburger { display: flex; }
+            
+            .nav-menu {
+                position: fixed;
+                top: 0; left: 0; right: 0; bottom: 0;
+                background: var(--white);
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                gap: 0;
+                opacity: 0;
+                visibility: hidden;
+                transition: all 0.3s ease;
+                z-index: 1001;
+            }
+            
+            .nav-menu.active { opacity: 1; visibility: visible; }
+            
+            .nav-menu > li { width: 100%; text-align: center; border-bottom: 1px solid var(--grey); }
+            .nav-menu > li:first-child { border-top: 1px solid var(--grey); }
+            .nav-menu > li > a { display: block; padding: 1rem; font-size: 1.1rem; }
+            
+            /* Mobile dropdown */
+            .dropdown-content {
+                position: static !important;
+                display: none !important;
+                box-shadow: none !important;
+                background: var(--grey) !important;
+                border-radius: 0 !important;
+                padding: 0 !important;
+                min-width: 100% !important;
+            }
+            .dropdown-content::before { display: none !important; }
+            .dropdown.active .dropdown-content { display: block !important; }
+            .dropdown-content a { padding: 0.8rem 1rem !important; border-bottom: 1px solid rgba(0,0,0,0.05); }
+            .dropdown-content a:last-child { border-bottom: none; }
+            
+            .dropdown:hover .dropdown-content { display: none !important; }
+            
+            .page-header { padding: 8rem 1.5rem 3rem; }
+            .page-header h1 { font-size: 2rem; }
+            .page-header::before { display: none; }
+            .page-header .subtitle { font-size: 1rem; }
+            
+            .main-content { padding: 2rem 1rem; }
+            .content-block { padding: 1.5rem; }
+            .content-block h2 { font-size: 1.5rem; }
+            
+            .page-navigation { flex-direction: column; gap: 1.5rem; padding: 2rem 1rem; }
+            
+            .footer-content { grid-template-columns: 1fr; gap: 1.5rem; }
+        }
+        
         html { scroll-behavior: smooth; }
     </style>
 </head>
 <body>
     <nav>
         <div class="logo"><a href="index.html">ES.</a></div>
+        <div class="hamburger" onclick="toggleMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
         <ul class="nav-menu">
             <li><a href="index.html">Accueil</a></li>
             <li class="dropdown">
-                <a href="#">Piloter</a>
+                <a href="#" class="">Piloter</a>
                 <div class="dropdown-content">
                     <a href="piloter-ppp.html">PPP</a>
                     <a href="piloter-sae.html">SAé</a>
@@ -81,12 +157,12 @@
                 <a href="#" class="active">Conseiller</a>
                 <div class="dropdown-content">
                     <a href="conseiller-ppp.html">PPP</a>
-                    <a href="conseiller-sae.html" class="active">SAé</a>
+                    <a href="conseiller-sae.html">SAé</a>
                     <a href="conseiller-alternance.html">Alternance</a>
                 </div>
             </li>
             <li class="dropdown">
-                <a href="#">Sécuriser</a>
+                <a href="#" class="">Sécuriser</a>
                 <div class="dropdown-content">
                     <a href="securiser-ppp.html">PPP</a>
                     <a href="securiser-sae.html">SAé</a>
@@ -94,14 +170,13 @@
                 </div>
             </li>
             <li class="dropdown">
-                <a href="#">Rédiger</a>
+                <a href="#" class="">Rédiger</a>
                 <div class="dropdown-content">
                     <a href="rediger-ppp.html">PPP</a>
                     <a href="rediger-sae.html">SAé</a>
                     <a href="rediger-alternance.html">Alternance</a>
                 </div>
             </li>
-            <li><a href="index.html#contact">Contact</a></li>
         </ul>
     </nav>
 
@@ -109,69 +184,48 @@
         <div class="page-header-content">
             <div class="breadcrumb">
                 <a href="index.html">Accueil</a>
-                <span>→</span>
-                <a href="conseiller-ppp.html">Conseiller</a>
-                <span>→</span>
+                <span>/</span>
+                <a href="#">Conseiller</a>
+                <span>/</span>
                 <span class="current">SAé</span>
             </div>
             <h1>Conseiller<br><span class="highlight">SAé</span></h1>
-            <p class="subtitle">Situations d'Apprentissage et d'Évaluation — Mise en pratique des compétences de conseil</p>
+            <p class="subtitle">Situations d'Apprentissage et d'Évaluation liées à la compétence Conseiller</p>
         </div>
     </header>
 
     <main class="main-content">
         <div class="content-container">
-            <!-- Semestre 1 -->
             <section class="semester-section">
                 <div class="semester-label">Semestre 1</div>
-                
                 <div class="content-block">
-                    <p class="sae-title">SAé 1.02 : Formulation d'un conseil juridique, comptable, financier et/ou organisationnel</p>
-                    <h2>Conseil au Procureur</h2>
-                    
-                    <p>Pour cette SAé, nous devions conseiller le procureur sur l'état de la législation en matière de nom.</p>
-                    
-                    <p>J'ai pu développer ma capacité à <strong>interpréter une problématique juridique</strong> à partir d'une demande implicite. Cela impliquait de comprendre le discours du client, d'identifier les aspects juridiques pertinents et de traduire ces éléments en un conseil clair et argumenté.</p>
-                    
-                    <p>Cette tâche m'a aidé à mieux comprendre comment relier les textes de loi aux besoins spécifiques d'un usager.</p>
-                </div>
-
-                <div class="skills-acquired">
-                    <h3>Apprentissages critiques</h3>
-                    <div class="skills-list">
-                        <span class="skill-tag">Interprétation juridique</span>
-                        <span class="skill-tag">Conseil argumenté</span>
-                        <span class="skill-tag">Recherche législative</span>
-                        <span class="skill-tag">Communication claire</span>
+                    <div class="sae-title">SAé 1.02 — Conseil au procureur</div>
+                    <h2>Législation sur les noms</h2>
+                    <p>Cette SAé consistait à conseiller un procureur sur la législation applicable aux noms de famille. J'ai dû effectuer des recherches approfondies sur Légifrance et formuler un conseil juridique argumenté.</p>
+                    <p>Ce travail m'a appris à interpréter les textes juridiques et à les appliquer à des situations concrètes.</p>
+                    <div class="skills-acquired">
+                        <h3>Apprentissages critiques</h3>
+                        <div class="skills-list">
+                            <span class="skill-tag">Recherche Légifrance</span>
+                            <span class="skill-tag">Interprétation juridique</span>
+                            <span class="skill-tag">Conseil argumenté</span>
+                        </div>
                     </div>
                 </div>
             </section>
-
-            <!-- Semestre 2 -->
             <section class="semester-section">
                 <div class="semester-label">Semestre 2</div>
-                
                 <div class="content-block">
-                    <p class="sae-title">SAé 2.01 : Analyse stratégique d'entreprise</p>
-                    <h2>Domaines d'Activité Stratégiques</h2>
-                    
-                    <p>Dans cette SAé, nous devions aider une entreprise à prendre des décisions d'investissement, de développement à l'international et de positionnement stratégique.</p>
-                    
-                    <p>Avec une camarade, j'ai travaillé sur l'analyse des <strong>Domaines d'Activité Stratégiques (DAS)</strong> de l'entreprise PRALUS : chocolaterie, glacerie et pâtisserie. Pour chaque DAS, nous avons identifié la clientèle cible, les produits, les outils de production, les enjeux technologiques, ainsi que les objectifs économiques.</p>
-                    
-                    <p>Cette tâche m'a permis d'analyser l'environnement économique et stratégique de l'entreprise, de reformuler les besoins en fonction du positionnement de chaque activité, et de proposer des pistes d'évolution alignées avec la stratégie globale de l'entreprise.</p>
-                    
-                    <p>Grâce à ce travail, j'ai mobilisé l'apprentissage critique : <em>"analyser une demande de conseil et y répondre à partir d'une compréhension globale de l'organisation"</em>.</p>
-                </div>
-
-                <div class="skills-acquired">
-                    <h3>Apprentissages critiques</h3>
-                    <div class="skills-list">
-                        <span class="skill-tag">Analyse stratégique</span>
-                        <span class="skill-tag">Identification des DAS</span>
-                        <span class="skill-tag">Conseil organisationnel</span>
-                        <span class="skill-tag">Compréhension globale</span>
-                        <span class="skill-tag">Travail collaboratif</span>
+                    <div class="sae-title">SAé 2.01 — Analyse DAS</div>
+                    <h2>Entreprise PRALUS</h2>
+                    <p>J'ai analysé les Domaines d'Activité Stratégique de l'entreprise PRALUS (chocolaterie, glacerie, pâtisserie). Cette analyse m'a permis de comprendre la structure globale d'une organisation et ses enjeux stratégiques.</p>
+                    <div class="skills-acquired">
+                        <h3>Apprentissages critiques</h3>
+                        <div class="skills-list">
+                            <span class="skill-tag">Analyse stratégique</span>
+                            <span class="skill-tag">Compréhension organisationnelle</span>
+                            <span class="skill-tag">Identification clientèle</span>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -182,13 +236,13 @@
         <a href="conseiller-ppp.html" class="nav-link prev">
             <div>
                 <div class="label">← Précédent</div>
-                <div class="title">Conseiller — PPP</div>
+                <div class="title">Conseiller PPP</div>
             </div>
         </a>
         <a href="conseiller-alternance.html" class="nav-link next">
             <div>
                 <div class="label">Suivant →</div>
-                <div class="title">Conseiller — Alternance</div>
+                <div class="title">Conseiller Alternance</div>
             </div>
         </a>
     </div>
@@ -196,23 +250,47 @@
     <footer>
         <div class="footer-content">
             <div class="footer-section">
-                <h4>Navigation</h4>
-                <a href="index.html">Accueil</a>
-                <a href="index.html#about">À propos</a>
-                <a href="index.html#competences">Compétences</a>
-            </div>
-            <div class="footer-section">
                 <h4>Contact</h4>
-                <a href="mailto:emma.stehelyn@example.com">Email</a>
-                <a href="#">LinkedIn</a>
+                <a href="mailto:emma.stehelyn@univ-lyon3.fr">emma.stehelyn@univ-lyon3.fr</a>
+                <p>Lyon, France</p>
             </div>
             <div class="footer-section">
-                <h4>Localisation</h4>
-                <p>Lyon, France</p>
-                <p>Université Lyon 3</p>
+                <h4>Formation</h4>
+                <p>BUT Carrières Juridiques</p>
+                <p>Université Jean Moulin Lyon 3</p>
+            </div>
+            <div class="footer-section">
+                <h4>Parcours</h4>
+                <p>Entreprise et Association</p>
+                <p>Juriste d'entreprise</p>
             </div>
         </div>
-        <p style="opacity: 0.4; margin-top: 2rem;">© 2024 Emma Stehelyn. Tous droits réservés.</p>
+        <p class="footer-bottom">© 2024 Emma Stehelyn. Tous droits réservés.</p>
     </footer>
+
+    <script>
+        function toggleMenu() {
+            document.querySelector('.hamburger').classList.toggle('active');
+            document.querySelector('.nav-menu').classList.toggle('active');
+        }
+
+        document.querySelectorAll('.dropdown > a').forEach(link => {
+            link.addEventListener('click', function(e) {
+                if (window.innerWidth <= 768) {
+                    e.preventDefault();
+                    this.parentElement.classList.toggle('active');
+                }
+            });
+        });
+
+        document.querySelectorAll('.dropdown-content a').forEach(link => {
+            link.addEventListener('click', function() {
+                if (window.innerWidth <= 768) {
+                    document.querySelector('.hamburger').classList.remove('active');
+                    document.querySelector('.nav-menu').classList.remove('active');
+                }
+            });
+        });
+    </script>
 </body>
 </html>
