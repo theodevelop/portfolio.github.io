@@ -157,9 +157,72 @@
         }
 
         html { scroll-behavior: smooth; }
+
+        /* Popup Love */
+        .love-popup-overlay {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            animation: fadeIn 0.5s ease;
+        }
+        .love-popup {
+            background: white;
+            padding: 2rem;
+            border-radius: 20px;
+            text-align: center;
+            max-width: 90%;
+            width: 400px;
+            animation: popIn 0.5s ease;
+            position: relative;
+        }
+        .love-popup img {
+            width: 100%;
+            max-height: 400px;
+            object-fit: cover;
+            border-radius: 12px;
+            margin-bottom: 1.5rem;
+        }
+        .love-popup p {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--accent);
+            line-height: 1.5;
+        }
+        .love-popup .close-btn {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            width: 35px;
+            height: 35px;
+            background: var(--accent);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            font-size: 1.2rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .love-popup-overlay.hidden { display: none; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes popIn { from { transform: scale(0.8); opacity: 0; } to { transform: scale(1); opacity: 1; } }
     </style>
 </head>
 <body>
+    <!-- Popup Love -->
+    <div class="love-popup-overlay" id="lovePopup">
+        <div class="love-popup">
+            <button class="close-btn" onclick="closePopup()">×</button>
+            <img src="./emma_jtm.jpg" alt="Emma je t'aime">
+            <p>EMMA JE T'AIME 😻<br>T'ES TROP LFDMV EN FAIT 😼</p>
+        </div>
+    </div>
+
     <nav>
         <div class="logo">ES.</div>
         <div class="hamburger" onclick="toggleMenu()">
@@ -307,7 +370,7 @@
     <section class="contact" id="contact">
         <h2>Travaillons<br>ensemble</h2>
         <p>Vous avez un projet ou souhaitez en savoir plus sur mon parcours ?</p>
-        <a href="mailto:emma.stehelyn@univ-lyon3.fr" class="contact-button">Me contacter</a>
+        <a href="/cdn-cgi/l/email-protection#e7828a8a86c99493828f828b9e89a792898e91ca8b9e8889d4c98195" class="contact-button">Me contacter</a>
     </section>
 
     <footer>
@@ -320,7 +383,7 @@
             </div>
             <div class="footer-section">
                 <h4>Contact</h4>
-                <a href="mailto:emma.stehelyn@univ-lyon3.fr">emma.stehelyn@univ-lyon3.fr</a>
+                <a href="/cdn-cgi/l/email-protection#5d3830303c732e293835383124331d2833342b70312432336e733b2f"><span class="__cf_email__" data-cfemail="67020a0a06491413020f020b1e092712090e114a0b1e080954490115">[email&#160;protected]</span></a>
                 <a href="#">LinkedIn</a>
             </div>
             <div class="footer-section">
@@ -333,6 +396,11 @@
     </footer>
 
     <script>
+        // Popup Love
+        function closePopup() {
+            document.getElementById('lovePopup').classList.add('hidden');
+        }
+
         function toggleMenu() {
             document.querySelector('.hamburger').classList.toggle('active');
             document.querySelector('.nav-menu').classList.toggle('active');
