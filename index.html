@@ -162,62 +162,89 @@
         .love-popup-overlay {
             position: fixed;
             top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(0,0,0,0.8);
+            background: rgba(0,0,0,0.85);
             display: flex;
             justify-content: center;
             align-items: center;
-            z-index: 9999;
+            z-index: 99999;
+            padding: 1rem;
             animation: fadeIn 0.5s ease;
+            overflow-y: auto;
         }
         .love-popup {
             background: white;
-            padding: 2rem;
+            padding: 1.5rem;
             border-radius: 20px;
             text-align: center;
-            max-width: 90%;
-            width: 400px;
+            max-width: 95%;
+            width: 350px;
             animation: popIn 0.5s ease;
             position: relative;
+            margin: auto;
         }
         .love-popup img {
             width: 100%;
-            max-height: 400px;
-            object-fit: cover;
+            max-height: 60vh;
+            object-fit: contain;
             border-radius: 12px;
-            margin-bottom: 1.5rem;
+            margin-bottom: 1rem;
         }
         .love-popup p {
-            font-size: 1.3rem;
+            font-size: 1.1rem;
             font-weight: 700;
             color: var(--accent);
             line-height: 1.5;
+            margin: 0;
         }
         .love-popup .close-btn {
             position: absolute;
-            top: -10px;
-            right: -10px;
-            width: 35px;
-            height: 35px;
+            top: -12px;
+            right: -12px;
+            width: 40px;
+            height: 40px;
             background: var(--accent);
             color: white;
             border: none;
             border-radius: 50%;
-            font-size: 1.2rem;
+            font-size: 1.5rem;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            -webkit-tap-highlight-color: transparent;
         }
         .love-popup-overlay.hidden { display: none; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
         @keyframes popIn { from { transform: scale(0.8); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+
+        @media (max-width: 768px) {
+            .love-popup {
+                width: 90%;
+                max-width: 320px;
+                padding: 1.2rem;
+            }
+            .love-popup img {
+                max-height: 50vh;
+            }
+            .love-popup p {
+                font-size: 1rem;
+            }
+            .love-popup .close-btn {
+                width: 44px;
+                height: 44px;
+                font-size: 1.8rem;
+                top: -15px;
+                right: -10px;
+            }
+        }
     </style>
 </head>
 <body>
     <!-- Popup Love -->
-    <div class="love-popup-overlay" id="lovePopup">
+    <div class="love-popup-overlay" id="lovePopup" onclick="closePopupOutside(event)">
         <div class="love-popup">
-            <button class="close-btn" onclick="closePopup()">×</button>
+            <button class="close-btn" onclick="closePopup()" ontouchend="closePopup()">×</button>
             <img src="./emma_jtm.jpg" alt="Emma je t'aime">
             <p>EMMA JE T'AIME 😻<br>T'ES TROP LFDMV EN FAIT 😼</p>
         </div>
@@ -399,6 +426,11 @@
         // Popup Love
         function closePopup() {
             document.getElementById('lovePopup').classList.add('hidden');
+        }
+        function closePopupOutside(event) {
+            if (event.target.id === 'lovePopup') {
+                closePopup();
+            }
         }
 
         function toggleMenu() {
