@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rédiger - Alternance | Emma Stehelyn</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root { --black: #0a0a0a; --white: #fafafa; --accent: #ff6b35; --grey: #e8e8e8; --dark-grey: #2a2a2a; }
+        body { font-family: 'Inter', sans-serif; background: var(--white); color: var(--black); overflow-x: hidden; }
+        nav { position: fixed; top: 0; left: 0; right: 0; padding: 2rem 4rem; display: flex; justify-content: space-between; align-items: center; z-index: 1000; background: rgba(250, 250, 250, 0.95); backdrop-filter: blur(20px); border-bottom: 1px solid rgba(0,0,0,0.05); }
+        .logo { font-size: 1.2rem; font-weight: 900; letter-spacing: -0.05em; }
+        .logo a { text-decoration: none; color: var(--black); }
+        .nav-menu { display: flex; gap: 3rem; list-style: none; align-items: center; }
+        .nav-menu > li { position: relative; }
+        .nav-menu > li > a { color: var(--black); text-decoration: none; font-size: 0.9rem; font-weight: 500; letter-spacing: 0.05em; text-transform: uppercase; transition: color 0.3s ease; }
+        .nav-menu > li > a:hover, .nav-menu > li > a.active { color: var(--accent); }
+        .dropdown { position: relative; }
+        .dropdown-content { display: none; position: absolute; top: 100%; left: 0; background: white; min-width: 200px; box-shadow: 0 10px 40px rgba(0,0,0,0.1); border-radius: 8px; padding: 1rem 0; margin-top: 1rem; }
+        .dropdown:hover .dropdown-content { display: block; }
+        .dropdown-content a { display: block; padding: 0.8rem 1.5rem; color: var(--black); text-decoration: none; font-size: 0.85rem; transition: all 0.3s ease; }
+        .dropdown-content a:hover, .dropdown-content a.active { background: var(--grey); color: var(--accent); }
+        .page-header { padding: 12rem 4rem 6rem; background: var(--black); color: var(--white); position: relative; overflow: hidden; }
+        .page-header::before { content: '04'; position: absolute; top: 50%; right: 10%; transform: translateY(-50%); font-size: 25rem; font-weight: 900; opacity: 0.05; line-height: 1; }
+        .page-header-content { max-width: 1400px; margin: 0 auto; position: relative; z-index: 1; }
+        .breadcrumb { display: flex; gap: 1rem; align-items: center; margin-bottom: 2rem; font-size: 0.9rem; }
+        .breadcrumb a { color: rgba(255,255,255,0.6); text-decoration: none; transition: color 0.3s ease; }
+        .breadcrumb a:hover { color: var(--accent); }
+        .breadcrumb span { color: rgba(255,255,255,0.3); }
+        .breadcrumb .current { color: var(--accent); }
+        .page-header h1 { font-family: 'Playfair Display', serif; font-size: clamp(3rem, 8vw, 6rem); font-weight: 900; line-height: 1; margin-bottom: 1.5rem; }
+        .page-header h1 .highlight { color: var(--accent); font-style: italic; }
+        .page-header .subtitle { font-size: 1.3rem; color: rgba(255,255,255,0.7); max-width: 600px; }
+        .main-content { padding: 6rem 4rem; }
+        .content-container { max-width: 1000px; margin: 0 auto; }
+        .semester-section { margin-bottom: 5rem; }
+        .semester-label { display: inline-block; background: var(--accent); color: white; padding: 0.5rem 1.5rem; font-size: 0.85rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 2rem; }
+        .content-block { background: var(--grey); padding: 4rem; margin-bottom: 2rem; }
+        .content-block h2 { font-family: 'Playfair Display', serif; font-size: 2.5rem; font-weight: 900; margin-bottom: 1rem; color: var(--black); }
+        .content-block .sae-title { font-size: 1rem; color: var(--accent); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 2rem; }
+        .content-block p { font-size: 1.1rem; line-height: 1.9; color: var(--dark-grey); margin-bottom: 1.5rem; }
+        .content-block p:last-child { margin-bottom: 0; }
+        .skills-acquired { background: var(--black); color: var(--white); padding: 3rem; margin-top: 3rem; }
+        .skills-acquired h3 { font-size: 1.2rem; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 1.5rem; color: var(--accent); }
+        .skills-list { display: flex; flex-wrap: wrap; gap: 1rem; }
+        .skill-tag { background: rgba(255,255,255,0.1); padding: 0.8rem 1.5rem; font-size: 0.9rem; border: 1px solid rgba(255,255,255,0.2); transition: all 0.3s ease; }
+        .skill-tag:hover { background: var(--accent); border-color: var(--accent); }
+        .page-navigation { display: flex; justify-content: space-between; padding: 4rem; background: var(--grey); margin-top: 4rem; }
+        .nav-link { text-decoration: none; color: var(--black); display: flex; align-items: center; gap: 1rem; transition: color 0.3s ease; }
+        .nav-link:hover { color: var(--accent); }
+        .nav-link .label { font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--dark-grey); }
+        .nav-link .title { font-size: 1.5rem; font-weight: 700; }
+        .nav-link.prev { text-align: left; }
+        .nav-link.next { text-align: right; }
+        footer { background: var(--black); color: white; padding: 4rem; text-align: center; }
+        .footer-content { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: repeat(3, 1fr); gap: 4rem; margin-bottom: 3rem; }
+        .footer-section h4 { font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.2em; margin-bottom: 1rem; color: var(--accent); }
+        .footer-section p, .footer-section a { color: rgba(255,255,255,0.6); text-decoration: none; font-size: 0.9rem; display: block; margin-bottom: 0.5rem; }
+        .footer-section a:hover { color: white; }
+        @media (max-width: 1024px) { nav { padding: 1.5rem 2rem; } .nav-menu { gap: 1.5rem; } .page-header, .main-content { padding-left: 2rem; padding-right: 2rem; } .content-block { padding: 2.5rem; } .footer-content { grid-template-columns: 1fr; text-align: left; } }
+        @media (max-width: 768px) { .page-header::before { display: none; } .page-navigation { flex-direction: column; gap: 2rem; } .nav-link.next { text-align: left; } }
+        html { scroll-behavior: smooth; }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="logo"><a href="index.html">ES.</a></div>
+        <ul class="nav-menu">
+            <li><a href="index.html">Accueil</a></li>
+            <li class="dropdown">
+                <a href="#">Piloter</a>
+                <div class="dropdown-content">
+                    <a href="piloter-ppp.html">PPP</a>
+                    <a href="piloter-sae.html">SAé</a>
+                    <a href="piloter-alternance.html">Alternance</a>
+                </div>
+            </li>
+            <li class="dropdown">
+                <a href="#">Conseiller</a>
+                <div class="dropdown-content">
+                    <a href="conseiller-ppp.html">PPP</a>
+                    <a href="conseiller-sae.html">SAé</a>
+                    <a href="conseiller-alternance.html">Alternance</a>
+                </div>
+            </li>
+            <li class="dropdown">
+                <a href="#">Sécuriser</a>
+                <div class="dropdown-content">
+                    <a href="securiser-ppp.html">PPP</a>
+                    <a href="securiser-sae.html">SAé</a>
+                    <a href="securiser-alternance.html">Alternance</a>
+                </div>
+            </li>
+            <li class="dropdown">
+                <a href="#" class="active">Rédiger</a>
+                <div class="dropdown-content">
+                    <a href="rediger-ppp.html">PPP</a>
+                    <a href="rediger-sae.html">SAé</a>
+                    <a href="rediger-alternance.html" class="active">Alternance</a>
+                </div>
+            </li>
+        </ul>
+    </nav>
+
+    <header class="page-header">
+        <div class="page-header-content">
+            <div class="breadcrumb">
+                <a href="index.html">Accueil</a>
+                <span>/</span>
+                <a href="#">Rédiger</a>
+                <span>/</span>
+                <span class="current">Alternance</span>
+            </div>
+            <h1>Rédiger<br><span class="highlight">Alternance</span></h1>
+            <p class="subtitle">Expériences professionnelles liées à la compétence Rédiger des actes juridiques</p>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="content-container">
+            <section class="semester-section">
+                <div class="semester-label">Expérience professionnelle</div>
+                <div class="content-block">
+                    <h2>Contenu à venir</h2>
+                    <p>Cette section sera complétée avec les expériences d'alternance liées à la compétence Rédiger, notamment la rédaction d'actes juridiques, de contrats, de courriers officiels et autres documents juridiques en contexte professionnel.</p>
+                    <p>Les missions de rédaction effectuées en entreprise permettront d'illustrer la maîtrise des techniques de rédaction juridique et la capacité à produire des documents conformes aux exigences professionnelles.</p>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <div class="page-navigation">
+        <a href="rediger-sae.html" class="nav-link prev">
+            <div>
+                <div class="label">← Précédent</div>
+                <div class="title">Rédiger SAé</div>
+            </div>
+        </a>
+        <a href="piloter-ppp.html" class="nav-link next">
+            <div>
+                <div class="label">Suivant →</div>
+                <div class="title">Piloter PPP</div>
+            </div>
+        </a>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>Contact</h4>
+                <a href="mailto:emma.stehelyn@example.com">emma.stehelyn@example.com</a>
+                <p>Lyon, France</p>
+            </div>
+            <div class="footer-section">
+                <h4>Formation</h4>
+                <p>BUT Carrières Juridiques</p>
+                <p>Université Jean Moulin Lyon 3</p>
+            </div>
+            <div class="footer-section">
+                <h4>Parcours</h4>
+                <p>Entreprise et Association</p>
+                <p>Juriste d'entreprise</p>
+            </div>
+        </div>
+        <p style="color: rgba(255,255,255,0.4); font-size: 0.8rem;">© 2024 Emma Stehelyn. Tous droits réservés.</p>
+    </footer>
+</body>
+</html>

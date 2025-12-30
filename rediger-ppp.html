@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rédiger - PPP | Emma Stehelyn</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root { --black: #0a0a0a; --white: #fafafa; --accent: #ff6b35; --grey: #e8e8e8; --dark-grey: #2a2a2a; }
+        body { font-family: 'Inter', sans-serif; background: var(--white); color: var(--black); overflow-x: hidden; }
+        nav { position: fixed; top: 0; left: 0; right: 0; padding: 2rem 4rem; display: flex; justify-content: space-between; align-items: center; z-index: 1000; background: rgba(250, 250, 250, 0.95); backdrop-filter: blur(20px); border-bottom: 1px solid rgba(0,0,0,0.05); }
+        .logo { font-size: 1.2rem; font-weight: 900; letter-spacing: -0.05em; }
+        .logo a { text-decoration: none; color: var(--black); }
+        .nav-menu { display: flex; gap: 3rem; list-style: none; align-items: center; }
+        .nav-menu > li { position: relative; }
+        .nav-menu > li > a { color: var(--black); text-decoration: none; font-size: 0.9rem; font-weight: 500; letter-spacing: 0.05em; text-transform: uppercase; transition: color 0.3s ease; }
+        .nav-menu > li > a:hover, .nav-menu > li > a.active { color: var(--accent); }
+        .dropdown { position: relative; }
+        .dropdown-content { display: none; position: absolute; top: 100%; left: 0; background: white; min-width: 200px; box-shadow: 0 10px 40px rgba(0,0,0,0.1); border-radius: 8px; padding: 1rem 0; margin-top: 1rem; }
+        .dropdown:hover .dropdown-content { display: block; }
+        .dropdown-content a { display: block; padding: 0.8rem 1.5rem; color: var(--black); text-decoration: none; font-size: 0.85rem; transition: all 0.3s ease; }
+        .dropdown-content a:hover, .dropdown-content a.active { background: var(--grey); color: var(--accent); }
+        .page-header { padding: 12rem 4rem 6rem; background: var(--black); color: var(--white); position: relative; overflow: hidden; }
+        .page-header::before { content: '04'; position: absolute; top: 50%; right: 10%; transform: translateY(-50%); font-size: 25rem; font-weight: 900; opacity: 0.05; line-height: 1; }
+        .page-header-content { max-width: 1400px; margin: 0 auto; position: relative; z-index: 1; }
+        .breadcrumb { display: flex; gap: 1rem; align-items: center; margin-bottom: 2rem; font-size: 0.9rem; }
+        .breadcrumb a { color: rgba(255,255,255,0.6); text-decoration: none; transition: color 0.3s ease; }
+        .breadcrumb a:hover { color: var(--accent); }
+        .breadcrumb span { color: rgba(255,255,255,0.3); }
+        .breadcrumb .current { color: var(--accent); }
+        .page-header h1 { font-family: 'Playfair Display', serif; font-size: clamp(3rem, 8vw, 6rem); font-weight: 900; line-height: 1; margin-bottom: 1.5rem; }
+        .page-header h1 .highlight { color: var(--accent); font-style: italic; }
+        .page-header .subtitle { font-size: 1.3rem; color: rgba(255,255,255,0.7); max-width: 600px; }
+        .main-content { padding: 6rem 4rem; }
+        .content-container { max-width: 1000px; margin: 0 auto; }
+        .semester-section { margin-bottom: 5rem; }
+        .semester-label { display: inline-block; background: var(--accent); color: white; padding: 0.5rem 1.5rem; font-size: 0.85rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 2rem; }
+        .content-block { background: var(--grey); padding: 4rem; margin-bottom: 2rem; }
+        .content-block h2 { font-family: 'Playfair Display', serif; font-size: 2.5rem; font-weight: 900; margin-bottom: 2rem; color: var(--black); }
+        .content-block p { font-size: 1.1rem; line-height: 1.9; color: var(--dark-grey); margin-bottom: 1.5rem; }
+        .content-block p:last-child { margin-bottom: 0; }
+        .skills-acquired { background: var(--black); color: var(--white); padding: 3rem; margin-top: 3rem; }
+        .skills-acquired h3 { font-size: 1.2rem; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 1.5rem; color: var(--accent); }
+        .skills-list { display: flex; flex-wrap: wrap; gap: 1rem; }
+        .skill-tag { background: rgba(255,255,255,0.1); padding: 0.8rem 1.5rem; font-size: 0.9rem; border: 1px solid rgba(255,255,255,0.2); transition: all 0.3s ease; }
+        .skill-tag:hover { background: var(--accent); border-color: var(--accent); }
+        .page-navigation { display: flex; justify-content: space-between; padding: 4rem; background: var(--grey); margin-top: 4rem; }
+        .nav-link { text-decoration: none; color: var(--black); display: flex; align-items: center; gap: 1rem; transition: color 0.3s ease; }
+        .nav-link:hover { color: var(--accent); }
+        .nav-link .label { font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--dark-grey); }
+        .nav-link .title { font-size: 1.5rem; font-weight: 700; }
+        .nav-link.prev { text-align: left; }
+        .nav-link.next { text-align: right; }
+        footer { background: var(--black); color: white; padding: 4rem; text-align: center; }
+        .footer-content { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: repeat(3, 1fr); gap: 4rem; margin-bottom: 3rem; }
+        .footer-section h4 { font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.2em; margin-bottom: 1rem; color: var(--accent); }
+        .footer-section p, .footer-section a { color: rgba(255,255,255,0.6); text-decoration: none; font-size: 0.9rem; display: block; margin-bottom: 0.5rem; }
+        .footer-section a:hover { color: white; }
+        @media (max-width: 1024px) { nav { padding: 1.5rem 2rem; } .nav-menu { gap: 1.5rem; } .page-header, .main-content { padding-left: 2rem; padding-right: 2rem; } .content-block { padding: 2.5rem; } .footer-content { grid-template-columns: 1fr; text-align: left; } }
+        @media (max-width: 768px) { .page-header::before { display: none; } .page-navigation { flex-direction: column; gap: 2rem; } .nav-link.next { text-align: left; } }
+        html { scroll-behavior: smooth; }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="logo"><a href="index.html">ES.</a></div>
+        <ul class="nav-menu">
+            <li><a href="index.html">Accueil</a></li>
+            <li class="dropdown">
+                <a href="#">Piloter</a>
+                <div class="dropdown-content">
+                    <a href="piloter-ppp.html">PPP</a>
+                    <a href="piloter-sae.html">SAé</a>
+                    <a href="piloter-alternance.html">Alternance</a>
+                </div>
+            </li>
+            <li class="dropdown">
+                <a href="#">Conseiller</a>
+                <div class="dropdown-content">
+                    <a href="conseiller-ppp.html">PPP</a>
+                    <a href="conseiller-sae.html">SAé</a>
+                    <a href="conseiller-alternance.html">Alternance</a>
+                </div>
+            </li>
+            <li class="dropdown">
+                <a href="#">Sécuriser</a>
+                <div class="dropdown-content">
+                    <a href="securiser-ppp.html">PPP</a>
+                    <a href="securiser-sae.html">SAé</a>
+                    <a href="securiser-alternance.html">Alternance</a>
+                </div>
+            </li>
+            <li class="dropdown">
+                <a href="#" class="active">Rédiger</a>
+                <div class="dropdown-content">
+                    <a href="rediger-ppp.html" class="active">PPP</a>
+                    <a href="rediger-sae.html">SAé</a>
+                    <a href="rediger-alternance.html">Alternance</a>
+                </div>
+            </li>
+            <li><a href="index.html#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <header class="page-header">
+        <div class="page-header-content">
+            <div class="breadcrumb">
+                <a href="index.html">Accueil</a>
+                <span>→</span>
+                <a href="rediger-ppp.html">Rédiger</a>
+                <span>→</span>
+                <span class="current">PPP</span>
+            </div>
+            <h1>Rédiger<br><span class="highlight">P.P.P</span></h1>
+            <p class="subtitle">Projet Personnel et Professionnel — Développer mes compétences rédactionnelles</p>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="content-container">
+            <section class="semester-section">
+                <div class="semester-label">Semestre 1</div>
+                
+                <div class="content-block">
+                    <h2>Projet Personnel et Professionnel</h2>
+                    <p>Le Projet Personnel et Professionnel (P.P.P) m'a permis d'explorer les différentes voies professionnelles.</p>
+                    
+                    <p>Après avoir étudié les trois parcours proposés dans mon BUT (Administration et Justice, Entreprise et Association, Patrimoine et Finance), j'ai choisi de m'orienter vers le parcours <strong>Entreprise et Association</strong>. Ce choix s'explique par mon intérêt pour le droit appliqué aux entreprises et par ma volonté de travailler dans le secteur privé. De plus, ce parcours offre la possibilité de suivre une alternance, un atout majeur pour développer mon expérience professionnelle.</p>
+                    
+                    <p>Ce travail de réflexion m'a conforté dans mon choix de devenir <strong>juriste d'entreprise</strong>. Ce métier correspond à mes compétences et à mes valeurs, notamment mon goût pour l'expertise et la technicité juridique.</p>
+                    
+                    <p>Le cours de P.P.P m'a permis de structurer ma réflexion sur mon avenir professionnel, d'acquérir une vision plus claire des opportunités offertes par mon diplôme.</p>
+                </div>
+
+                <div class="skills-acquired">
+                    <h3>Compétences développées</h3>
+                    <div class="skills-list">
+                        <span class="skill-tag">Rédaction juridique</span>
+                        <span class="skill-tag">Synthèse</span>
+                        <span class="skill-tag">Argumentation</span>
+                        <span class="skill-tag">Documents professionnels</span>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <div class="page-navigation">
+        <a href="securiser-alternance.html" class="nav-link prev">
+            <div>
+                <div class="label">← Précédent</div>
+                <div class="title">Sécuriser — Alternance</div>
+            </div>
+        </a>
+        <a href="rediger-sae.html" class="nav-link next">
+            <div>
+                <div class="label">Suivant →</div>
+                <div class="title">Rédiger — SAé</div>
+            </div>
+        </a>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>Navigation</h4>
+                <a href="index.html">Accueil</a>
+                <a href="index.html#about">À propos</a>
+                <a href="index.html#competences">Compétences</a>
+            </div>
+            <div class="footer-section">
+                <h4>Contact</h4>
+                <a href="mailto:emma.stehelyn@example.com">Email</a>
+                <a href="#">LinkedIn</a>
+            </div>
+            <div class="footer-section">
+                <h4>Localisation</h4>
+                <p>Lyon, France</p>
+                <p>Université Lyon 3</p>
+            </div>
+        </div>
+        <p style="opacity: 0.4; margin-top: 2rem;">© 2024 Emma Stehelyn. Tous droits réservés.</p>
+    </footer>
+</body>
+</html>
